@@ -1,6 +1,65 @@
+
 # WaypointTerminal
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.2.
+
+---
+
+## Architecture: Angular 21 Official Best Practices
+
+This project follows Angular's official recommendations for scalable, maintainable applications.
+
+### Why Feature-First Structure?
+- **Simplicity:** Organizes code by feature, making it easy to find and reason about.
+- **Scalability:** New features are added in their own folders, reducing merge conflicts and code tangling.
+- **Separation of Concerns:** Keeps feature logic, shared utilities, and app-wide services clearly separated.
+- **Modern Angular:** Uses standalone components, signals, and lazy-loaded feature routes.
+
+### Recommended Project Structure
+
+```
+src/app/
+	features/         # Each feature in its own folder
+		users/
+			user-list/
+				user-list.component.ts
+				user-list.component.html
+			user-detail/
+				user-detail.component.ts
+				user-detail.component.html
+			user.service.ts
+		dashboard/
+			dashboard.component.ts
+			dashboard.service.ts
+	shared/           # Shared components, pipes, directives, and models
+		components/
+		pipes/
+		directives/
+		models/
+	core/             # Singleton services, app-wide utilities, guards, interceptors
+		services/
+		guards/
+		interceptors/
+	app.config.ts
+	app.routes.ts
+	app.ts
+```
+
+### Best Practices
+- Use standalone components and signals for state management
+- Organize by feature, not by type
+- Place feature-specific services in their feature folders
+- Use `shared/` for truly reusable code
+- Use `core/` for singleton services and app-wide utilities
+- Prefer inline templates for small components
+- Use signals and computed for state, avoid `any` type
+
+#### References
+- [Angular Application Structure](https://angular.dev/guide/structure)
+- [Angular Standalone Components](https://angular.io/guide/standalone-components)
+
+## Component Generation Script:
+ng generate component features/service-records/arena/arena --standalone --flat --export
 
 ## Development server
 

@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "http://halo-api-env-python.eba-x4qzxfry.eu-west-1.elasticbeanstalk.com",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}
