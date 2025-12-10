@@ -1,4 +1,11 @@
 <p>arena works!</p>
 <button (click)="serviceRecord.fetchServiceRecord('NicmeisteR')" class="btn btn-primary">Click me</button>
 
-{{ serviceRecord.record() | json }}
+<stat-card
+  title="Total Matches"
+  [value]="KDRatio()"
+  icon="gamepad"
+  color="blue"
+></stat-card>
+
+
