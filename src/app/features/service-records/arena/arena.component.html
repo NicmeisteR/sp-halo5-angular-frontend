@@ -1,11 +1,257 @@
-<p>arena works!</p>
-<button (click)="serviceRecord.fetchServiceRecord('NicmeistaR')" class="btn btn-primary">Click me to test responsive display</button>
+<header class="w-full bg-[#0a1820]/90 border-b border-[#1a3340] px-6 py-3 backdrop-blur-sm">
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-4">
+      <a routerLink="/" class="back-btn group relative w-10 h-10 flex items-center justify-center bg-[#0a1820]/80 border border-[#1a3340] hover:border-[#00d4ff] transition-all">
+        <span class="absolute top-0 left-0 w-2 h-2  border-[#00d4ff]"></span>
+        <span class="absolute bottom-0 right-0 w-2 h-2 border-[#00d4ff]"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-[#00d4ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </a>
+      <div class="flex flex-col">
+        <span class="text-[9px] text-[#00d4ff] tracking-[0.2em] uppercase">Waypoint Terminal //</span>
+        <h1 class="text-lg font-bold text-[#e8f4f8] tracking-wide uppercase">
+          Service Record
+        </h1>
+      </div>
+    </div>
 
-<stat-card
-  title="Total Matches"
-  [value]="KDRatio()"
-  icon="gamepad"
-  color="blue"
-></stat-card>
+    <div class="flex items-center gap-6">
+      <div class="flex items-center gap-2">
+        <span class="text-[9px] text-[#667788] tracking-[0.15em] uppercase">Status</span>
+        <span class="flex items-center gap-1.5">
+          @if(!serviceRecord.loading()){
+            <span class="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
+            <span class="text-[11px] tracking-[0.1em] uppercase text-[#00ff88]">Connected</span>
+          }@else {
+            <span class="w-2 h-2 rounded-full bg-[#ff0000] animate-pulse"></span>
+            <span class="text-[11px] tracking-[0.1em] uppercase text-[#ff0000]">Loading</span>
+          }
+        </span>
+      </div>
+      <button
+        (click)="serviceRecord.fetchServiceRecord(serviceRecord.record()?.PlayerId?.Gamertag || '')"
+        class="flex items-center gap-2 px-4 py-2.5 border border-[#1a3340] bg-[#0a1820]/60 hover:border-[#00d4ff] hover:text-[#00d4ff] text-[#667788] text-xs tracking-[0.15em] uppercase transition-all cursor-pointer"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+        </svg>
+        <span>Refresh</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Player Banner Section -->
+<div class="mb-6 relative overflow-hidden">
+  <!-- Banner Background with Gradient -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#0a1820] via-[#0a1820]/90 to-[#0a1820]/60"></div>
+  <div class="absolute inset-0 bg-gradient-to-t from-[#0a1820] via-transparent to-transparent"></div>
+  <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#00d4ff]/5 to-transparent"></div>
+  
+  <!-- Decorative Lines -->
+  <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#00d4ff] via-[#00d4ff]/30 to-transparent"></div>
+  <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-[#1a3340] via-[#1a3340]/50 to-transparent"></div>
+  
+  <div class="relative flex items-stretch px-6 py-4">
+    <!-- Player Avatar Section -->
+    <div class="relative">
+      <!-- Avatar Frame -->
+      <div class="w-28 h-28 relative">
+        <!-- Outer glow -->
+        <div class="absolute -inset-1 bg-gradient-to-br from-[#00d4ff]/20 to-transparent blur-sm"></div>
+        <!-- Border frame -->
+        <div class="absolute inset-0 border-2 border-[#00d4ff]/40"></div>
+        <div class="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00d4ff]"></div>
+        <div class="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00d4ff]"></div>
+        <div class="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00d4ff]"></div>
+        <div class="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00d4ff]"></div>
+        <!-- Avatar Container -->
+            <div class="absolute inset-0 flex items-center justify-center bg-[#0a1820]">
+        <img src="https://haloplayer.svc.halowaypoint.com/h5/profiles/{{ serviceRecord.record()?.PlayerId?.Gamertag || gamertag() }}/spartan?key=&amp;size=512&amp;crop=Full" alt="NicmeistaR">
+        </div>
+      </div>
+    </div>
+    
+    <!-- Player Info Section -->
+    <div class="flex-1 py-2 pl-6 pr-4">
+      <!-- Top Row: Gamertag + Emblem -->
+      <div class="flex items-center gap-3 mb-3">
+        <img 
+          src="https://haloplayer.svc.halowaypoint.com/h5/profiles/{{ gamertag() }}/emblem?size=95" 
+          alt="Emblem"
+          class="w-10 h-10 object-contain"
+        >
+        <h1 class="text-3xl font-heading font-bold tracking-wide text-[#e8f4f8]">{{ serviceRecord.record()?.PlayerId?.Gamertag || gamertag() }}</h1>
+      </div>
+      
+      <!-- Stats Row -->
+      <div class="flex items-center gap-6 flex-wrap">
+        <!-- Spartan Rank -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center border border-[#f5a623]/40 bg-[#f5a623]/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#f5a623]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 17.75L6.16 21l1.12-6.54L2 9.75l6.58-.96L12 3.5l3.42 5.29 6.58.96-4.76 4.71 1.12 6.54z" />
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-sm text-[#e8f4f8] font-bold">{{ spartanRank() }}</div>
+            <div class="font-body text-[9px] text-[#f5a623] tracking-wider uppercase">Spartan Rank</div>
+          </div>
+        </div>
+        <!-- Divider -->
+        <div class="w-[1px] h-8 bg-[#1a3340]"></div>
+        <!-- XP Stat -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center border border-[#f5a623]/40 bg-[#f5a623]/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#f5a623]" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-sm text-[#e8f4f8]">{{ formatXP(xp()) }}</div>
+            <div class="font-body text-[9px] text-[#667788] tracking-wider uppercase">Experience</div>
+          </div>
+        </div>
+        <!-- Divider -->
+        <div class="w-[1px] h-8 bg-[#1a3340]"></div>
+        <!-- Time Played -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center border border-[#00d4ff]/40 bg-[#00d4ff]/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#00d4ff]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-sm text-[#e8f4f8]">{{ timePlayed() }}</div>
+            <div class="font-body text-[9px] text-[#667788] tracking-wider uppercase">Time Played</div>
+          </div>
+        </div>
+        <!-- Divider -->
+        <div class="w-[1px] h-8 bg-[#1a3340]"></div>
+        <!-- Games Played -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center border border-[#00ff88]/40 bg-[#00ff88]/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#00ff88]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-sm text-[#e8f4f8]">{{ totalGamesPlayed() | number }}</div>
+            <div class="font-body text-[9px] text-[#667788] tracking-wider uppercase">Matches</div>
+          </div>
+        </div>
+        <!-- Divider -->
+        <div class="w-[1px] h-8 bg-[#1a3340]"></div>
+        <!-- K/D Ratio -->
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 flex items-center justify-center border border-[#ff4444]/40 bg-[#ff4444]/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#ff4444]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+            </svg>
+          </div>
+          <div>
+            <div class="font-heading text-sm text-[#e8f4f8]">{{ KDRatio() }}</div>
+            <div class="font-body text-[9px] text-[#667788] tracking-wider uppercase">K/D Ratio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="flex items-center px-6 border-l border-[#1a3340]">
+      <div class="w-20 h-20 relative flex items-center justify-center bg-[#1a3340]/30 border border-[#1a3340] group cursor-help" title="You've qualified as {{ highestCsrAttained() }}">
+        <img src="https://content.halocdn.com/media/Default/games/halo-5-guardians/csr/csr_top_array01-3755e5127c9c46368e648d58da44390e.png" alt="">
+        <!-- Tooltip -->
+        <div class="absolute top-1/2 right-full mr-3 -translate-y-1/2 px-3 py-2 bg-[#0a1820] border border-[#f5a623]/40 text-[10px] text-[#e8f4f8] font-body whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-xl min-w-[180px] max-w-xs">
+          <div class="text-[#f5a623] font-heading tracking-wider mb-1">HIGHEST RANKS ACHIEVED</div>
+          <div class="text-[#667788]">You've qualified as {{ highestCsrAttained() }}</div>
+          <!-- Arrow -->
+          <div class="absolute top-1/2 right-[-8px] -translate-y-1/2 w-0 h-0 border-y-8 border-y-transparent border-l-8 border-l-[#0a1820] border-r-0"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<tab-group
+  [tabs]="[
+    { label: 'Overview', color: 'cyan', id: 'overview' },
+    { label: 'Matches', color: 'gold', id: 'matches' },
+    { label: 'Stats', color: 'green', id: 'stats' },
+    { label: 'Achievements', color: 'red', id: 'achievements' }
+  ]"
+  [activeTab]="activeTab()"
+  (tabChange)="setActiveTab($event)"
+></tab-group>
+
+@if(activeTab() === 'overview') {
+<tab>
+  <div class="stats shadow flex flex-wrap gap-4 justify-center mt-4">
+    <stat-card
+      title="K/D Ratio"
+      description="Performance Index"
+      [value]="KDRatio()"
+      icon="gamepad"
+      color="blue"
+    ></stat-card>
+
+    <stat-card
+      title="Win Rate"
+      [description]="serviceRecord.record()?.ArenaStats?.TotalGamesWon + ' Victories'"
+      [value]="WinRate()"
+      valueSymbol="%"
+      icon="gamepad"
+      color="blue"
+    ></stat-card>
+
+    <stat-card
+      title="Total Kills"
+      description="Confirmed Eliminations"
+      [value]="(serviceRecord.record()?.ArenaStats?.TotalKills ?? 0) | number"
+      icon="gamepad"
+      color="blue"
+    ></stat-card>
+
+    <stat-card
+      title="Total Deaths"
+      description="KIA Count"
+      [value]="(serviceRecord.record()?.ArenaStats?.TotalDeaths ?? 0) | number"
+      icon="gamepad"
+      color="blue"
+    ></stat-card>
+
+    <stat-card
+      title="Total Assists"
+      description="Team Support"
+      [value]="(serviceRecord.record()?.ArenaStats?.TotalAssists ?? 0) | number"
+      icon="gamepad"
+      color="blue"
+    ></stat-card>
+  </div>
+</tab>
+} @else if(activeTab() === 'matches') {
+<tab>
+  <div class="p-6">
+    <h2 class="text-xl font-heading font-bold text-[#e8f4f8] mb-4">Matches Tab Content</h2>
+    <p class="text-[#667788]">This is where the Matches content will go.</p>
+  </div>
+</tab>
+} @else if(activeTab() === 'stats') {
+<tab>
+  <div class="p-6">
+    <h2 class="text-xl font-heading font-bold text-[#e8f4f8] mb-4">Stats Tab Content</h2>
+    <p class="text-[#667788]">This is where the Stats content will go.</p>
+  </div>
+</tab>
+} @else if(activeTab() === 'achievements') {  
+<tab>
+  <div class="p-6">
+    <h2 class="text-xl font-heading font-bold text-[#e8f4f8] mb-4">Achievements Tab Content</h2>
+    <p class="text-[#667788]">This is where the Achievements content will go.</p>
+  </div>
+</tab>
+}
 
 
