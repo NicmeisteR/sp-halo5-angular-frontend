@@ -1,3 +1,30 @@
+<div class="min-h-screen h-screen flex flex-col bg-[#1b1c1c92] relative overflow-hidden">
+    <div class="fixed inset-0 pointer-events-none">
+        <div
+            class="absolute top-0 left-0 w-[500px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(0,212,255,0.03),transparent_70%)]">
+        </div>
+        <div
+            class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(245,166,35,0.02),transparent_70%)]">
+        </div>
+    </div>
 
-<a class="btn" routerLink="/service-records/NicmeisteR/arena">Go to Service Records</a>
-<router-outlet />
+    <div class="flex-1 flex flex-col">
+        <router-outlet />
+    </div>
+
+    <footer class="mt-auto relative z-20 border-t border-[#1a3340] bg-[#0f1418]/95 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto px-6 py-2.5">
+            <div class="flex items-center justify-between">
+                <div class="font-body text-[9px] text-[#667788] tracking-[0.15em]">
+                    <span class="text-[#00d4ff]">//</span> ANGULAR 21
+                    <span class="mx-2 text-[#1a3340]">|</span>
+                    HALO WAYPOINT API
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <span class="text-[#f5a623] text-[10px]">◆</span>
+                    <span class="font-body text-[9px] text-[#f5a623] tracking-[0.15em] uppercase">UNSC Approved</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

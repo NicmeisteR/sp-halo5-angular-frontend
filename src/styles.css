@@ -1,2 +1,659 @@
+@import url('https://fonts.googleapis.com/css2?family=Industry:wght@400;500;600;700&family=Eurostile:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 @plugin "daisyui";
+
+/* ============================================================================
+   HALO 5 GUARDIANS UI THEME
+   Clean military tech aesthetic inspired by Halo 5 Guardians
+   ============================================================================ */
+
+:root {
+  /* Primary accent - Cyan/Teal */
+  --halo-cyan: #00d4ff;
+  --halo-cyan-bright: #4de8ff;
+  --halo-cyan-dim: #0098b8;
+  --halo-cyan-glow: rgba(0, 212, 255, 0.8);
+  --halo-cyan-soft: rgba(0, 212, 255, 0.12);
+  
+  /* Gold/Yellow for ranks and highlights */
+  --halo-gold: #f5a623;
+  --halo-gold-bright: #ffc107;
+  --halo-gold-dim: #c78b1c;
+  --halo-gold-glow: rgba(245, 166, 35, 0.6);
+  --halo-gold-soft: rgba(245, 166, 35, 0.15);
+  
+  /* Team colors */
+  --halo-blue-team: #2196f3;
+  --halo-blue-team-soft: rgba(33, 150, 243, 0.2);
+  --halo-red-team: #f44336;
+  --halo-red-team-soft: rgba(244, 67, 54, 0.2);
+  
+  /* Status colors */
+  --halo-green: #00e676;
+  --halo-green-soft: rgba(0, 230, 118, 0.15);
+  --halo-yellow: #ffea00;
+  --halo-pink: #ff4081;
+  --halo-purple: #9c27b0;
+  
+  /* Background colors - Deep navy/teal */
+  --halo-bg-darkest: #030d16;
+  --halo-bg-darker: #061422;
+  --halo-bg-dark: #0a1a2e;
+  --halo-bg-surface: #0d2137;
+  --halo-bg-elevated: #123049;
+  --halo-bg-panel: rgba(13, 33, 55, 0.85);
+  
+  /* Text colors */
+  --halo-text: #e8f4f8;
+  --halo-text-secondary: #a8d4e6;
+  --halo-text-dim: #7eb8c9;
+  --halo-text-muted: #3d6a7a;
+  
+  /* Border colors */
+  --halo-border: rgba(0, 212, 255, 0.4);
+  --halo-border-dim: rgba(0, 212, 255, 0.15);
+  --halo-border-bright: rgba(0, 212, 255, 0.7);
+  
+  /* Grid pattern */
+  --halo-grid: rgba(0, 212, 255, 0.03);
+  
+  /* Glow effects - Subtle for clean Halo 5 style */
+  --glow-cyan: 0 0 8px rgba(0, 212, 255, 0.3), 0 0 16px rgba(0, 212, 255, 0.1);
+  --glow-cyan-intense: 0 0 12px rgba(0, 212, 255, 0.4), 0 0 24px rgba(0, 212, 255, 0.15);
+  --glow-gold: 0 0 8px rgba(245, 166, 35, 0.3), 0 0 16px rgba(245, 166, 35, 0.12);
+  
+  /* Fonts - Halo 5 uses Industry/Eurostile family */
+  --font-heading: 'Industry', 'Eurostile', 'Rajdhani', 'Teko', sans-serif;
+  --font-body: 'Industry', 'Eurostile', 'Exo 2', sans-serif;
+}
+
+/* DaisyUI Theme Override */
+[data-theme="dark"] {
+  --p: 190 100% 50%;
+  --pf: 190 90% 40%;
+  --pc: 210 50% 10%;
+  --s: 36 91% 55%;
+  --sc: 0 0% 10%;
+  --a: 340 82% 52%;
+  --ac: 0 0% 100%;
+  --n: 210 50% 10%;
+  --nc: 190 40% 90%;
+  --b1: 210 55% 6%;
+  --b2: 210 60% 5%;
+  --b3: 210 70% 3%;
+  --bc: 190 40% 92%;
+  --rounded-box: 2px;
+  --rounded-btn: 2px;
+}
+
+/* ============================================================================
+   GLOBAL STYLES
+   ============================================================================ */
+
+* {
+  font-family: var(--font-body);
+}
+
+body {
+  background: var(--halo-bg-darkest) url('/background.jpg') center center / cover no-repeat fixed;
+  color: var(--halo-text);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    rgba(3, 13, 22, 0.4) 0%,
+    rgba(3, 13, 22, 0.7) 50%,
+    rgba(3, 13, 22, 0.85) 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+
+/* ============================================================================
+   BACKGROUND PATTERNS
+   ============================================================================ */
+
+.grid-pattern {
+  background-image: 
+    linear-gradient(var(--halo-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--halo-grid) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ============================================================================
+   CARD STYLES - Halo 5 Panel Design
+   ============================================================================ */
+
+.card-hud {
+  position: relative;
+  background: linear-gradient(180deg, 
+    rgba(13, 33, 55, 0.92) 0%, 
+    rgba(6, 20, 34, 0.95) 100%
+  );
+  border: 1px solid var(--halo-border-dim);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.card-hud::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent,
+    var(--halo-cyan) 20%,
+    var(--halo-cyan) 80%,
+    transparent
+  );
+  opacity: 0.5;
+}
+
+.card-tech {
+  position: relative;
+  background: var(--halo-bg-panel);
+  border: 1px solid var(--halo-border-dim);
+}
+
+.card-tech::before,
+.card-tech::after {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--halo-cyan);
+  border-style: solid;
+}
+
+.card-tech::before {
+  top: -1px;
+  left: -1px;
+  border-width: 1px 0 0 1px;
+}
+
+.card-tech::after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 1px 1px 0;
+}
+
+/* ============================================================================
+   BUTTON STYLES
+   ============================================================================ */
+
+.btn-hud {
+  position: relative;
+  background: linear-gradient(180deg, 
+    rgba(0, 212, 255, 0.12) 0%, 
+    rgba(0, 212, 255, 0.06) 100%
+  );
+  border: 1px solid var(--halo-border);
+  color: var(--halo-cyan);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.btn-hud::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%,
+    rgba(0, 212, 255, 0.2) 50%,
+    transparent 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.btn-hud:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-hud:hover {
+  background: linear-gradient(180deg, 
+    rgba(0, 212, 255, 0.25) 0%, 
+    rgba(0, 212, 255, 0.12) 100%
+  );
+  border-color: var(--halo-cyan);
+  box-shadow: var(--glow-cyan), inset 0 0 20px rgba(0, 212, 255, 0.08);
+  color: #fff;
+}
+
+.btn-hud:active {
+  transform: scale(0.98);
+}
+
+.btn-hud:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-hud-outline {
+  background: transparent;
+  border: 1px solid var(--halo-border-dim);
+  color: var(--halo-text-dim);
+}
+
+.btn-hud-outline:hover {
+  background: rgba(0, 212, 255, 0.08);
+  border-color: var(--halo-cyan);
+  color: var(--halo-cyan);
+}
+
+.btn-hud-primary {
+  background: linear-gradient(180deg, var(--halo-cyan) 0%, var(--halo-cyan-dim) 100%);
+  border: none;
+  color: var(--halo-bg-darkest);
+  font-weight: 700;
+}
+
+.btn-hud-primary:hover {
+  background: linear-gradient(180deg, var(--halo-cyan-bright) 0%, var(--halo-cyan) 100%);
+  box-shadow: var(--glow-cyan-intense);
+}
+
+/* ============================================================================
+   INPUT STYLES
+   ============================================================================ */
+
+.input-hud {
+  background: rgba(6, 20, 34, 0.8);
+  border: 1px solid var(--halo-border-dim);
+  color: var(--halo-text);
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
+  transition: all 0.2s ease;
+}
+
+.input-hud::placeholder {
+  color: var(--halo-text-muted);
+}
+
+.input-hud:focus {
+  border-color: var(--halo-cyan);
+  box-shadow: var(--glow-cyan), inset 0 0 15px rgba(0, 212, 255, 0.05);
+  outline: none;
+  background: rgba(0, 212, 255, 0.03);
+}
+
+/* ============================================================================
+   TABLE STYLES - Scoreboard Design
+   ============================================================================ */
+
+.selected-row {
+  background: rgba(0, 80, 100, 0.12) !important;
+  border-left: 2px solid #00d4ff !important;
+}
+
+.table-hud {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-body);
+}
+
+.table-hud thead tr {
+  background: linear-gradient(90deg, 
+    rgba(0, 212, 255, 0.08) 0%, 
+    rgba(0, 212, 255, 0.03) 50%,
+    rgba(0, 212, 255, 0.08) 100%
+  );
+}
+
+.table-hud thead th {
+  color: var(--halo-text-dim);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--halo-border-dim);
+  padding: 0.875rem 1rem;
+}
+
+.table-hud tbody tr {
+  border-bottom: 1px solid rgba(0, 212, 255, 0.05);
+  transition: all 0.15s ease;
+}
+
+.table-hud tbody tr:hover {
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.table-hud tbody tr.selected {
+  background: rgba(0, 212, 255, 0.12);
+  box-shadow: inset 3px 0 0 var(--halo-cyan);
+}
+
+.table-hud td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.table-hud tbody tr.team-blue {
+  background: var(--halo-blue-team-soft);
+  border-left: 3px solid var(--halo-blue-team);
+}
+
+.table-hud tbody tr.team-red {
+  background: var(--halo-red-team-soft);
+  border-left: 3px solid var(--halo-red-team);
+}
+
+/* ============================================================================
+   TAB STYLES
+   ============================================================================ */
+
+.tabs-hud {
+  background: rgba(13, 33, 55, 0.5);
+  border: 1px solid var(--halo-border-dim);
+  padding: 4px;
+  gap: 2px;
+}
+
+.tabs-hud .tab {
+  color: var(--halo-text-dim);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1.25rem;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.tabs-hud .tab:hover {
+  color: var(--halo-cyan);
+  background: rgba(0, 212, 255, 0.06);
+}
+
+.tabs-hud .tab-active {
+  background: linear-gradient(180deg, 
+    rgba(0, 212, 255, 0.2) 0%, 
+    rgba(0, 212, 255, 0.08) 100%
+  ) !important;
+  border-color: var(--halo-cyan) !important;
+  color: var(--halo-cyan) !important;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 1px 0 rgba(0, 212, 255, 0.3);
+}
+
+/* ============================================================================
+   STAT BLOCKS
+   ============================================================================ */
+
+.stat-hud {
+  position: relative;
+  background: linear-gradient(135deg, 
+    rgba(0, 212, 255, 0.05) 0%,
+    rgba(13, 33, 55, 0.85) 100%
+  );
+  border: 1px solid var(--halo-border-dim);
+  padding: 1.25rem;
+}
+
+.stat-hud::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--halo-cyan), var(--halo-cyan-dim));
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+}
+
+.stat-hud .stat-title {
+  color: var(--halo-text-dim);
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.stat-hud .stat-value {
+  color: var(--halo-cyan);
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.3);
+}
+
+.stat-hud .stat-desc {
+  color: var(--halo-text-muted);
+  font-size: 0.7rem;
+}
+
+.stat-hud.stat-gold::before {
+  background: linear-gradient(180deg, var(--halo-gold), var(--halo-gold-dim));
+  box-shadow: 0 0 8px rgba(245, 166, 35, 0.3);
+}
+
+.stat-hud.stat-gold .stat-value {
+  color: var(--halo-gold);
+  text-shadow: 0 0 12px rgba(245, 166, 35, 0.3);
+}
+
+.stat-hud.stat-green::before {
+  background: linear-gradient(180deg, var(--halo-green), #00b85c);
+  box-shadow: 0 0 8px rgba(0, 230, 118, 0.3);
+}
+
+.stat-hud.stat-green .stat-value {
+  color: var(--halo-green);
+  text-shadow: 0 0 12px rgba(0, 230, 118, 0.3);
+}
+
+/* ============================================================================
+   BADGE STYLES
+   ============================================================================ */
+
+.badge-hud {
+  background: var(--halo-cyan-soft);
+  border: 1px solid var(--halo-border);
+  color: var(--halo-cyan);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+}
+
+.badge-hud-success {
+  background: var(--halo-green-soft);
+  border-color: var(--halo-green);
+  color: var(--halo-green);
+}
+
+.badge-hud-warning {
+  background: rgba(255, 234, 0, 0.12);
+  border-color: var(--halo-yellow);
+  color: var(--halo-yellow);
+}
+
+.badge-hud-gold {
+  background: var(--halo-gold-soft);
+  border-color: var(--halo-gold);
+  color: var(--halo-gold);
+  box-shadow: 0 0 6px rgba(245, 166, 35, 0.15);
+}
+
+.badge-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  background: linear-gradient(135deg, 
+    rgba(245, 166, 35, 0.25) 0%,
+    rgba(245, 166, 35, 0.1) 100%
+  );
+  border: 1px solid var(--halo-gold);
+  color: var(--halo-gold);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 8px rgba(245, 166, 35, 0.3);
+}
+
+/* ============================================================================
+   TEXT STYLES
+   ============================================================================ */
+
+.text-glow {
+  color: var(--halo-cyan);
+  text-shadow: 
+    0 0 6px rgba(0, 212, 255, 0.4),
+    0 0 12px rgba(0, 212, 255, 0.2);
+}
+
+.text-glow-gold {
+  color: var(--halo-gold);
+  text-shadow: 
+    0 0 6px rgba(245, 166, 35, 0.4),
+    0 0 12px rgba(245, 166, 35, 0.2);
+}
+
+.text-cyan { color: var(--halo-cyan); }
+.text-gold { color: var(--halo-gold); }
+.text-green { color: var(--halo-green); }
+.text-blue-team { color: var(--halo-blue-team); }
+.text-red-team { color: var(--halo-red-team); }
+.text-muted { color: var(--halo-text-muted); }
+.text-dim { color: var(--halo-text-dim); }
+
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-cyber { font-family: var(--font-heading); }
+.font-mono { font-family: var(--font-body); }
+
+/* ============================================================================
+   STATUS INDICATORS
+   ============================================================================ */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--halo-cyan);
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.5);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.status-dot-online {
+  background: var(--halo-green);
+  box-shadow: 0 0 6px rgba(0, 230, 118, 0.5);
+}
+
+.status-dot-warning {
+  background: var(--halo-yellow);
+  box-shadow: 0 0 6px rgba(255, 234, 0, 0.5);
+}
+
+.status-dot-error {
+  background: var(--halo-red-team);
+  box-shadow: 0 0 6px rgba(244, 67, 54, 0.5);
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+/* ============================================================================
+   DIVIDER STYLES
+   ============================================================================ */
+
+.divider-tech {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--halo-text-muted);
+}
+
+.divider-tech::before,
+.divider-tech::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--halo-cyan) 30%, var(--halo-cyan) 70%, transparent);
+  opacity: 0.4;
+}
+
+/* ============================================================================
+   LOADING & ANIMATIONS
+   ============================================================================ */
+
+.loading-hud {
+  border-color: transparent;
+  border-top-color: var(--halo-cyan);
+  border-right-color: rgba(0, 212, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-15px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-slide-in { animation: slide-in-left 0.35s ease-out; }
+
+@keyframes boot-up {
+  0% { opacity: 0; transform: scale(0.98); filter: brightness(1.5); }
+  100% { opacity: 1; transform: scale(1); filter: brightness(1); }
+}
+
+.animate-boot { animation: boot-up 0.5s ease-out; }
+
+
+
+/* ============================================================================
+   SCROLLBAR
+   ============================================================================ */
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--halo-bg-darker); border-left: 1px solid var(--halo-border-dim); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--halo-cyan-dim), var(--halo-cyan)); border: 1px solid rgba(0, 212, 255, 0.3); }
+::-webkit-scrollbar-thumb:hover { background: var(--halo-cyan); box-shadow: 0 0 6px rgba(0, 212, 255, 0.3); }
+
+/* ============================================================================
+   UTILITY CLASSES
+   ============================================================================ */
+
+.border-cyan { border-color: var(--halo-border); }
+.border-cyan-dim { border-color: var(--halo-border-dim); }
+.bg-surface { background: var(--halo-bg-surface); }
+.bg-elevated { background: var(--halo-bg-elevated); }
+.bg-panel { background: var(--halo-bg-panel); }
+
+.delay-0 { animation-delay: 0s; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+
